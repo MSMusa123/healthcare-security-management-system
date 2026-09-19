@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HSMS | Security Alerts</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #e9eef3;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .low {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .risk {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: #123c69;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>HSMS</h1>
+
+    <p>Healthcare Security Management System</p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Security Alerts</h2>
+
+        <p>
+            Security events detected by the Healthcare Security
+            Management System.
+        </p>
+
+
+        {% if alerts %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>User ID</th>
+
+                    <th>Alert Type</th>
+
+                    <th>Severity</th>
+
+                    <th>Description</th>
+
+                    <th>Risk Score</th>
+
+                    <th>Status</th>
+
+                    <th>Time</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for alert in alerts %}
+
+                <tr>
+
+                    <td>
+                        {{ alert["id"] }}
+                    </td>
+
+
+                    <td>
+                        {{ alert["user_id"] }}
+                    </td>
+
+
+                    <td>
+                        {{ alert["alert_type"] }}
+                    </td>
+
+
+                    <td>
+
+                        {% if alert["severity"] == "HIGH" %}
+
+                            <span class="high">
+                                HIGH
+                            </span>
+
+                        {% elif alert["severity"] == "MEDIUM" %}
+
+                            <span class="medium">
+                                MEDIUM
+                            </span>
+
+                        {% else %}
+
+                            <span class="low">
+                                LOW
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ alert["description"] }}
+                    </td>
+
+
+                    <td>
+
+                        <span class="risk">
+                            {{ alert["risk_score"] }}/100
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="status">
+                            {{ alert["status"] }}
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        {{ alert["created_at"] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+            <p>No security alerts detected.</p>
+
+        {% endif %}
+
+
+        <a class="back" href="/dashboard">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

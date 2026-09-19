@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Offline Emergency Access</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .warning {
+            background: #fff7ed;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #dc2626;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #b91c1c;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🚨 Offline Emergency Access</h1>
+
+        <div class="warning">
+
+            <strong>System Offline Mode</strong>
+
+            <p>
+                The main HSMS server or network is currently
+                unavailable.
+            </p>
+
+            <p>
+                Emergency access will be recorded locally
+                and synchronized with the central audit
+                system when connectivity returns.
+            </p>
+
+        </div>
+
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        {% if success %}
+
+        <div class="success">
+
+            <strong>{{ success }}</strong>
+
+            <p>
+                Access recorded at:
+                {{ created_at }}
+            </p>
+
+            <p>
+                This event is waiting for synchronization
+                with the central HSMS audit system.
+            </p>
+
+        </div>
+
+        {% else %}
+
+        <h2>Patient Information</h2>
+
+        <p>
+            <strong>Patient Number:</strong>
+            {{ patient["patient_number"] }}
+        </p>
+
+        <p>
+            <strong>Patient Name:</strong>
+            {{ patient["full_name"] }}
+        </p>
+
+        <p>
+            <strong>Ward:</strong>
+            {{ patient["ward"] }}
+        </p>
+
+
+        <form method="POST">
+
+            <label for="reason">
+                Emergency Reason
+            </label>
+
+            <textarea
+                id="reason"
+                name="reason"
+                placeholder="Explain why emergency access is required..."
+                required></textarea>
+
+
+            <button type="submit">
+                Record Offline Emergency Access
+            </button>
+
+        </form>
+
+        {% endif %}
+
+
+        <a href="/patients" class="back">
+            ← Back to Patient Records
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

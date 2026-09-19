@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HSMS | Emergency Access</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #8b0000;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 5px;
+            color: #721c24;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #8b0000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>HSMS</h1>
+
+    <p>Emergency Break-Glass Access</p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>🚨 Emergency Patient Access</h2>
+
+        <div class="warning">
+
+            <strong>Warning:</strong>
+
+            Emergency access bypasses normal patient-access restrictions.
+
+            This action will be permanently recorded in the HSMS
+            security audit trail and will generate a HIGH severity
+            security event.
+
+        </div>
+
+
+        <h3>Patient</h3>
+
+        <p>
+            <strong>Patient Number:</strong>
+            {{ patient["patient_number"] }}
+        </p>
+
+        <p>
+            <strong>Name:</strong>
+            {{ patient["full_name"] }}
+        </p>
+
+        <p>
+            <strong>Ward:</strong>
+            {{ patient["ward"] }}
+        </p>
+
+
+        {% if error %}
+
+        <div class="error">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        {% if success %}
+
+        <div class="success">
+
+            <strong>{{ success }}</strong>
+
+            <p>
+                Emergency access expires at:
+                {{ expires_at }}
+            </p>
+
+            <p>
+                This emergency access has been recorded
+                in the security audit trail.
+            </p>
+
+        </div>
+
+        {% else %}
+
+        <form method="POST">
+
+            <label for="reason">
+
+                <strong>
+                    Reason for Emergency Access
+                </strong>
+
+            </label>
+
+            <textarea
+                id="reason"
+                name="reason"
+                placeholder="Explain why immediate access to this patient record is required..."
+                required
+            ></textarea>
+
+            <button type="submit">
+                🚨 Grant Emergency Access
+            </button>
+
+        </form>
+
+        {% endif %}
+
+
+        <a href="/patients">
+            ← Back to Patient Records
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

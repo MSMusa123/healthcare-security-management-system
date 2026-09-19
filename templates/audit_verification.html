@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Audit Integrity Verification</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .status {
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .valid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .invalid {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Audit Log Integrity</h1>
+
+    {% if result["valid"] %}
+
+        <div class="status valid">
+
+            <div class="icon">✅</div>
+
+            <h2>Audit Log Verified</h2>
+
+            <p>
+                {{ result["message"] }}
+            </p>
+
+        </div>
+
+    {% else %}
+
+        <div class="status invalid">
+
+            <div class="icon">⚠️</div>
+
+            <h2>Audit Log Integrity Compromised</h2>
+
+            <p>
+                {{ result["message"] }}
+            </p>
+
+            {% if result["log_id"] %}
+                <p>
+                    Affected Log ID:
+                    <strong>{{ result["log_id"] }}</strong>
+                </p>
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+    <a href="/audit" class="button">
+        View Audit Logs
+    </a>
+
+    <br>
+
+    <a href="/dashboard" class="button">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

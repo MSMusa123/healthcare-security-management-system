@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HSMS | Audit Logs</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #e9eef3;
+        }
+
+        .allow {
+            color: green;
+            font-weight: bold;
+        }
+
+        .block {
+            color: red;
+            font-weight: bold;
+        }
+
+        .restrict {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .hash {
+            font-family: monospace;
+            font-size: 11px;
+            max-width: 180px;
+            word-break: break-all;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>HSMS</h1>
+    <p>Security Audit Logs</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Audit Log Records</h2>
+
+        <p>
+            These records track security-related activities
+            within the Healthcare Security Management System.
+        </p>
+
+        {% if logs %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Action</th>
+                    <th>Patient ID</th>
+                    <th>Details</th>
+                    <th>Time</th>
+                    <th>Hash</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for log in logs %}
+
+                <tr>
+
+                    <td>{{ log["id"] }}</td>
+
+                    <td>{{ log["user_id"] }}</td>
+
+                    <td>
+                        {% if "ALLOW" in log["action"] %}
+                            <span class="allow">
+                                {{ log["action"] }}
+                            </span>
+
+                        {% elif "BLOCK" in log["action"] %}
+                            <span class="block">
+                                {{ log["action"] }}
+                            </span>
+
+                        {% elif "RESTRICT" in log["action"] %}
+                            <span class="restrict">
+                                {{ log["action"] }}
+
+                            </span>
+
+                        {% else %}
+                            {{ log["action"] }}
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ log["patient_id"] }}
+                    </td>
+
+                    <td>
+                        {{ log["details"] }}
+                    </td>
+
+                    <td>
+                        {{ log["created_at"] }}
+                    </td>
+
+                    <td class="hash">
+                        {{ log["current_hash"] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p>No audit logs available.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="/dashboard">← Back to Dashboard</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HSMS | Emergency Access Management</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #e9eef3;
+        }
+
+        .active {
+            color: green;
+            font-weight: bold;
+        }
+
+        .expired {
+            color: red;
+            font-weight: bold;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .reason {
+            max-width: 250px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #123c69;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>HSMS</h1>
+
+    <p>Emergency Access Management</p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Emergency Access Records</h2>
+
+        <p>
+            Monitor emergency break-glass access to patient records.
+        </p>
+
+
+        {% if emergency_list %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Staff Member</th>
+
+                    <th>Patient</th>
+
+                    <th>Reason</th>
+
+                    <th>Risk</th>
+
+                    <th>Status</th>
+
+                    <th>Granted</th>
+
+                    <th>Expires</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for emergency in emergency_list %}
+
+                <tr>
+
+                    <td>
+                        {{ emergency["id"] }}
+                    </td>
+
+
+                    <td>
+
+                        {{ emergency["user_name"] }}
+
+                        <br>
+
+                        <small>
+                            {{ emergency["user_role"] }}
+                        </small>
+
+                    </td>
+
+
+                    <td>
+
+                        {{ emergency["patient_number"] }}
+
+                        <br>
+
+                        <small>
+                            {{ emergency["patient_name"] }}
+                        </small>
+
+                    </td>
+
+
+                    <td class="reason">
+                        {{ emergency["reason"] }}
+                    </td>
+
+
+                    <td>
+
+                        <span class="high">
+                            {{ emergency["risk_score"] }}/100
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        {% if emergency["status"] == "ACTIVE" %}
+
+                            <span class="active">
+                                ACTIVE
+                            </span>
+
+                        {% else %}
+
+                            <span class="expired">
+                                {{ emergency["status"] }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ emergency["created_at"] }}
+                    </td>
+
+
+                    <td>
+                        {{ emergency["expires_at"] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+            <p>
+                No emergency access records found.
+            </p>
+
+        {% endif %}
+
+
+        <br>
+
+        <a href="/dashboard">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

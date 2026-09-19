@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Offline Emergency Management</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .info {
+            background: #fff7ed;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: #f9fafb;
+        }
+
+        .status {
+            color: #d97706;
+            font-weight: bold;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2563eb;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Offline Emergency Management</h1>
+
+        <div class="info">
+
+            <strong>Offline Security Mode</strong>
+
+            <p>
+                Emergency access events recorded while the
+                main system was unavailable are stored locally
+                until connectivity is restored.
+            </p>
+
+        </div>
+
+        {% if message %}
+
+        <div class="success">
+            {{ message }}
+        </div>
+
+        {% endif %}
+
+        {% if offline_records %}
+
+        <p>
+            <strong>
+                {{ offline_records|length }}
+            </strong>
+            event(s) waiting for synchronization.
+        </p>
+
+        <form method="POST">
+
+            <button type="submit">
+                Synchronize Offline Events
+            </button>
+
+        </form>
+
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Staff</th>
+                    <th>Patient</th>
+                    <th>Reason</th>
+                    <th>Access Type</th>
+                    <th>Time</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for record in offline_records %}
+
+                <tr>
+
+                    <td>
+                        {{ record["id"] }}
+                    </td>
+
+                    <td>
+                        {{ record["user_name"] or "Unknown" }}
+                    </td>
+
+                    <td>
+                        {{ record["patient_number"] }}
+                        -
+                        {{ record["patient_name"] }}
+                    </td>
+
+                    <td>
+                        {{ record["reason"] }}
+                    </td>
+
+                    <td>
+                        {{ record["access_type"] }}
+                    </td>
+
+                    <td>
+                        {{ record["created_at"] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p>
+            ✅ No offline emergency events are waiting
+            for synchronization.
+        </p>
+
+        {% endif %}
+
+        <a href="/dashboard" class="back">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>HSMS | Access Restricted</title>
+
+</head>
+
+<body>
+
+    <h1>Access Restricted</h1>
+
+    <h2>🚫 Patient Record Not Available</h2>
+
+    <p>
+        You are not currently authorized to view
+        this patient's full record.
+    </p>
+
+    <p>
+        <strong>Patient:</strong>
+        {{ patient["patient_number"] }}
+    </p>
+
+    <p>
+        <strong>Decision:</strong>
+        {{ decision["decision"] }}
+    </p>
+
+    <p>
+        <strong>Reason:</strong>
+        {{ decision["reason"] }}
+        <p>
+    <strong>Risk Score:</strong>
+    {{ risk["score"] }}/100
+</p>
+
+<p>
+    <strong>Risk Level:</strong>
+    {{ risk["level"] }}
+</p>
+
+<h3>Risk Factors</h3>
+
+<ul>
+    {% for reason in risk["reasons"] %}
+        <li>{{ reason }}</li>
+    {% endfor %}
+</ul>
+    </p>
+
+    <br>
+
+    <hr>
+
+<h3>Emergency Access</h3>
+
+<p>
+    If this is a genuine medical emergency and immediate
+    access is required, you may request emergency access.
+</p>
+
+<a href="/emergency/{{ patient['id'] }}">
+    🚨 Request Emergency Access
+</a>
+
+<br><br>
+
+<a href="/offline-emergency/{{ patient['id'] }}">
+    📴 Offline Emergency Mode
+</a>
+
+<br><br>
+
+<a href="/patients">
+    ← Back to Patient Records
+</a>
+
+</body>
+
+</html>

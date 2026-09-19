@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HSMS | Secure Login</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body class="login-page">
+
+    <div class="login-container">
+
+        <!-- Left information panel -->
+        <div class="login-info">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🛡️
+                </div>
+
+                <div>
+                    <h1>HSMS</h1>
+                    <p>Healthcare Security Management System</p>
+                </div>
+
+            </div>
+
+            <div class="login-message">
+
+                <span class="security-badge">
+                    ● SECURE HEALTHCARE ACCESS
+                </span>
+
+                <h2>
+                    Protecting patient records
+                    through intelligent access control.
+                </h2>
+
+                <p>
+                    HSMS provides context-aware security for
+                    healthcare records, emergency access,
+                    security monitoring and tamper-evident
+                    auditing.
+                </p>
+
+            </div>
+
+            <div class="security-features">
+
+                <div class="security-feature">
+                    <span>✓</span>
+                    <div>
+                        <strong>Context-Aware Access</strong>
+                        <small>
+                            Access decisions consider role,
+                            ward and patient relationship.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="security-feature">
+                    <span>✓</span>
+                    <div>
+                        <strong>Emergency Protection</strong>
+                        <small>
+                            Break-glass access remains
+                            accountable and monitored.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="security-feature">
+                    <span>✓</span>
+                    <div>
+                        <strong>Tamper-Evident Auditing</strong>
+                        <small>
+                            Security events are protected
+                            using cryptographic hash chaining.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Login panel -->
+        <div class="login-card">
+
+            <div class="mobile-logo">
+                <div class="brand-icon">
+                    🛡️
+                </div>
+                <h1>HSMS</h1>
+            </div>
+
+            <div class="login-header">
+
+                <h2>Welcome back</h2>
+
+                <p>
+                    Sign in to access the healthcare
+                    security system.
+                </p>
+
+            </div>
+
+
+            {% if error %}
+
+            <div class="login-error">
+                <strong>Login failed</strong>
+                <span>{{ error }}</span>
+            </div>
+
+            {% endif %}
+
+
+            <form
+                method="POST"
+                action="{{ url_for('login') }}"
+            >
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Sign in securely
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <div class="login-security-note">
+
+                <span>🔐</span>
+
+                <div>
+                    <strong>Protected environment</strong>
+
+                    <p>
+                        Your access is monitored and
+                        recorded for security purposes.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="login-footer">
+
+                <span>
+                    Healthcare Security Management System
+                </span>
+
+                <span>
+                    HSMS Prototype
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".password-toggle");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                button.textContent = "🙈";
+
+            } else {
+
+                password.type = "password";
+
+                button.textContent = "👁";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>

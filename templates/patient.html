@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>HSMS | Patient Record</title>
+
+</head>
+
+<body>
+
+    <h1>Patient Record</h1>
+
+    <p>
+        <strong>Security Decision:</strong>
+        {{ decision["decision"] }}
+    </p>
+
+    <p>
+        <strong>Reason:</strong>
+        {{ decision["reason"] }}
+        <p>
+    <strong>Risk Score:</strong>
+    {{ risk["score"] }}/100
+</p>
+
+<p>
+    <strong>Risk Level:</strong>
+    {{ risk["level"] }}
+</p>
+
+<h3>Risk Factors</h3>
+
+<ul>
+    {% for reason in risk["reasons"] %}
+        <li>{{ reason }}</li>
+    {% endfor %}
+</ul>
+    </p>
+
+    <hr>
+
+    <h2>{{ patient["full_name"] }}</h2>
+
+    <p>
+        <strong>Patient Number:</strong>
+        {{ patient["patient_number"] }}
+    </p>
+
+    <p>
+        <strong>Date of Birth:</strong>
+        {{ patient["date_of_birth"] }}
+    </p>
+
+    <p>
+        <strong>Blood Group:</strong>
+        {{ patient["blood_group"] }}
+    </p>
+
+    <p>
+        <strong>Allergies:</strong>
+        {{ patient["allergies"] }}
+    </p>
+
+    <p>
+        <strong>Medical Conditions:</strong>
+        {{ patient["medical_conditions"] }}
+    </p>
+
+    <p>
+        <strong>Medication:</strong>
+        {{ patient["medication"] }}
+    </p>
+
+    <p>
+        <strong>Ward:</strong>
+        {{ patient["ward"] }}
+    </p>
+
+    <br>
+
+    <a href="/patients">
+        Back to Patient Records
+    </a>
+
+</body>
+
+</html>
