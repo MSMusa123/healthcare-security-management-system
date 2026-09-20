@@ -152,38 +152,38 @@ Security:
 
 HSMS/
 
-├── app.py
-├── config.py
-├── requirements.txt
-├── README.md
-│
-├── database/
-│   ├── db.py
-│   ├── schema.sql
-│   └── hsms.db
-│
-├── security/
-│   ├── auth.py
-│   ├── access_control.py
-│   ├── risk_engine.py
-│   ├── emergency.py
-│   ├── anomaly_detector.py
-│   ├── alerts.py
-│   ├── audit_log.py
-│   └── offline_mode.py
-│
-├── templates/
-│   ├── login.html
-│   ├── dashboard.html
-│   ├── patients.html
-│   ├── patient.html
-│   ├── emergency.html
-│   ├── alerts.html
-│   └── ...
-│
-└── static/
-    └── css/
-        └── style.css
+ app.py
+ config.py
+ requirements.txt
+ README.md
+
+database/
+   db.py
+   schema.sql
+  hsms.db
+
+security/
+   auth.py
+   access_control.py
+   risk_engine.py
+   emergency.py
+   anomaly_detector.py
+   alerts.py
+   audit_log.py
+   offline_mode.py
+
+templates/
+   login.html
+   dashboard.html
+   patients.html
+   patient.html
+   emergency.html
+   alerts.html
+   ........
+
+ static/
+      css/
+        style.css
 
 ---
 
@@ -353,7 +353,4 @@ Project:
 Healthcare Security Management System (HSMS)
 
 Team:
-[Tob Brainers]
-
-Source Code:
-[ADD GITHUB LINK]
+Tob Brainers
